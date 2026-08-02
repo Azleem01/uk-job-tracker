@@ -1,6 +1,6 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Azeez Aleem — UK ML / Data Job Tracker</title>
+<title>Azeez Aleem - UK ML / Data Job Tracker</title>
 <style>
   :root{
     --bg:#eef1f5; --panel:#ffffff; --ink:#0c1524; --muted:#5b6b82; --line:#e2e8f0;
@@ -111,6 +111,10 @@
   .apply{background:var(--brand);color:#fff;font-weight:750;font-size:13.5px;padding:9px 16px;border-radius:9px;
     display:inline-flex;gap:7px;align-items:center}
   .apply:hover{background:#128a3f}
+  .foot-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+  .cvbtn{background:transparent;color:var(--brand);border:1px solid var(--brand);font-weight:750;font-size:13.5px;
+    padding:8px 14px;border-radius:9px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+  .cvbtn:hover{background:var(--brand-soft)}
   .salary{font-size:13px;color:var(--ink);font-weight:650}
 
   /* Sidebar */
@@ -144,16 +148,16 @@
         <small>Azeez Aleem · Data Science / ML</small>
       </span>
     </div>
-    <span class="pill" id="livePill">— live vacancies</span>
+    <span class="pill" id="livePill">- live vacancies</span>
   </div>
 </header>
 <div class="ticker"><div class="row" id="ticker"></div></div>
 
 <main class="wrap">
   <section class="hero">
-    <h1>Find Your Next <span class="g">UK Role</span> — <br/>Remote Anywhere · On-site near London</h1>
+    <h1>Find Your Next <span class="g">UK Role</span><br/>Remote Anywhere · On-site near London</h1>
     <p>Data Science &amp; Machine Learning jobs matched to your CV, scored by how likely you are to land them,
-       with the exact keywords to add. Freshest first — <b>updated daily</b>.</p>
+       with the exact keywords to add. Freshest first - <b>updated daily</b>.</p>
     <div class="search">
       <input id="q" type="text" placeholder="Search title, company, skill…  e.g. LLM, London, part-time" />
       <button onclick="render()">Search</button>
@@ -172,22 +176,32 @@
 
     <aside>
       <div class="card">
-        <h4>📈 CV Boost — biggest wins</h4>
+        <h4>📈 CV Boost - biggest wins</h4>
         <div class="sub">Skills most often required across the jobs below that aren't on your CV yet. Add the top ones first.</div>
         <div class="boost" id="boost"></div>
       </div>
       <div class="card">
+        <h4>📄 Tailored CV optimiser</h4>
+        <div class="legend">
+          <div>Every job has a <b>Tailored CV</b> button. It downloads a Word (.doc), ATS-optimised CV
+          built for that exact role: the title is mirrored, the summary is retuned to the track, and the
+          job's keywords are woven into your Core Competencies so applicant-tracking systems match you.</div>
+          <div style="margin-top:8px">Single column, standard headings, no tables or graphics. Your
+          experience stays factual, so be ready to speak to any listed skill in interview.</div>
+        </div>
+      </div>
+      <div class="card">
         <h4>🛰️ Sources checked</h4>
-        <div class="sub" id="updated">Last updated —</div>
+        <div class="sub" id="updated">Last updated -</div>
         <div class="srclist" id="srclist"></div>
       </div>
       <div class="card">
         <h4>🎚️ Likelihood key</h4>
         <div class="legend">
-          <div><span class="dotk" style="background:var(--hi)"></span><b>High (≥70)</b> — strong skill + level match, apply first.</div>
-          <div><span class="dotk" style="background:var(--med)"></span><b>Medium (45–69)</b> — good fit; the "Add to CV" keywords close the gap.</div>
-          <div><span class="dotk" style="background:var(--lo)"></span><b>Low (&lt;45)</b> — a stretch (seniority / heavy extra skills).</div>
-          <div style="margin-top:8px">Score = level fit + CV skill overlap + remote/part-time bonuses − seniority/experience gaps.</div>
+          <div><span class="dotk" style="background:var(--hi)"></span><b>High (≥70)</b> - strong skill + level match, apply first.</div>
+          <div><span class="dotk" style="background:var(--med)"></span><b>Medium (45-69)</b> - good fit; the "Add to CV" keywords close the gap.</div>
+          <div><span class="dotk" style="background:var(--lo)"></span><b>Low (&lt;45)</b> - a stretch (seniority / heavy extra skills).</div>
+          <div style="margin-top:8px">Score = level fit + CV skill overlap + remote/part-time bonuses, minus seniority/experience gaps.</div>
         </div>
       </div>
     </aside>
@@ -209,97 +223,97 @@ const CV_SKILLS = ["Python","PyTorch","TensorFlow","scikit-learn","XGBoost","SQL
 const JOBS = [
   // ---------------- Data Scientist ----------------
   {t:"Data Scientist, Payments",co:"Stripe",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"20 hours ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-payments-at-stripe-4430967819",
+   posted:"20 hours ago",age:0,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-payments-at-stripe-4430967819",
    like:74,have:["Python","SQL","Pandas"],add:["A/B testing","Experimentation","Spark"]},
   {t:"Data Scientist, Early Career (UK)",co:"Jobright.ai",loc:"Remote (UK)",cat:"ds",remote:true,commutable:false,type:"Full-time",
-   posted:"under 1 hour ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-early-career-uk-at-jobright-ai-4447660035",
+   posted:"under 1 hour ago",age:0,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-early-career-uk-at-jobright-ai-4447660035",
    like:82,have:["Python","scikit-learn","SQL"],add:["Cloud (AWS/GCP)","SQL dashboards"]},
   {t:"Data Scientist",co:"Faculty",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-2960333230301903225",
+   posted:"5 hours ago",age:0,salary:"",src:"Jooble",url:"https://uk.jooble.org/desc/-2960333230301903225",
    like:75,have:["Python","PyTorch","scikit-learn","LLMs"],add:["MLOps","Docker","Azure"]},
   {t:"Data Scientist",co:"checkout.com",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-7038774481097191593",
+   posted:"5 hours ago",age:0,salary:"",src:"Jooble",url:"https://uk.jooble.org/desc/-7038774481097191593",
    like:70,have:["Python","SQL","XGBoost"],add:["Spark","Experimentation","dbt"]},
   {t:"Data Scientist I",co:"QuantumBlack, AI by McKinsey",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"—",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
+   posted:"1 day ago",age:1,salary:"",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
    like:72,have:["Python","scikit-learn","XGBoost","SQL"],add:["Cloud (AWS/GCP)","MLOps","Spark"]},
   {t:"Data Scientist, London",co:"Transak",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"£58k–£75k",src:"Jooble",url:"https://uk.jooble.org/desc/-4555738996573814665",
+   posted:"1 day ago",age:1,salary:"£58k-£75k",src:"Jooble",url:"https://uk.jooble.org/desc/-4555738996573814665",
    like:68,have:["Python","SQL","Pandas"],add:["Blockchain analytics","SQL","Tableau"]},
   {t:"Data Scientist",co:"Vitality",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-at-vitality-4447154110",
+   posted:"1 day ago",age:1,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-at-vitality-4447154110",
    like:66,have:["Python","scikit-learn","SQL"],add:["Statistics","R","Actuarial data"]},
   {t:"Data Scientist",co:"CoreWeave Europe",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"8 hours ago",age:0,salary:"£59k–£76k",src:"Jooble",url:"https://uk.jooble.org/desc/-1211007382502721353",
+   posted:"8 hours ago",age:0,salary:"£59k-£76k",src:"Jooble",url:"https://uk.jooble.org/desc/-1211007382502721353",
    like:63,have:["Python","PyTorch"],add:["Distributed training","CUDA","Kubernetes"]},
   {t:"Data Scientist",co:"Sage",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
-   posted:"5 days ago",age:5,salary:"£69k–£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-5814570644308582049",
+   posted:"5 days ago",age:5,salary:"£69k-£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-5814570644308582049",
    like:64,have:["Python","scikit-learn","SQL"],add:["Cloud (Azure)","MLOps"]},
   {t:"Data Scientist",co:"Jobheron",loc:"London",cat:"ds",remote:false,commutable:true,type:"Permanent",
-   posted:"29 Jun",age:34,salary:"£54k–£58k",src:"Reed",url:"https://www.reed.co.uk/jobs/data-scientist/57069135",
+   posted:"29 Jun",age:34,salary:"£54k-£58k",src:"Reed",url:"https://www.reed.co.uk/jobs/data-scientist/57069135",
    like:62,have:["Python","scikit-learn","SQL"],add:["Power BI","SQL","Statistics"]},
 
   // ---------------- ML / AI Engineer ----------------
   {t:"Mid-Level AI / Machine Learning Engineer",co:"Nextech",loc:"London",cat:"mle",remote:false,commutable:true,type:"Permanent",
-   posted:"4 days ago",age:4,salary:"£65k–£75k",src:"Reed",url:"https://www.reed.co.uk/jobs/mid-level-ai-machine-learning-engineer/57170074",
+   posted:"4 days ago",age:4,salary:"£65k-£75k",src:"Reed",url:"https://www.reed.co.uk/jobs/mid-level-ai-machine-learning-engineer/57170074",
    like:76,have:["Python","PyTorch","FastAPI","LLMs"],add:["Docker","AWS","MLOps"]},
   {t:"Machine Learning Engineer",co:"datatonic",loc:"London",cat:"mle",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"£56k–£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-7028140385128638726",
+   posted:"1 day ago",age:1,salary:"£56k-£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-7028140385128638726",
    like:73,have:["Python","TensorFlow","scikit-learn"],add:["GCP / Vertex AI","Docker","BigQuery"]},
   {t:"Graduate AI Software Engineer",co:"Bending Spoons",loc:"London",cat:"mle",remote:false,commutable:true,type:"Graduate",
-   posted:"1 day ago",age:1,salary:"—",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
+   posted:"1 day ago",age:1,salary:"",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
    like:74,have:["Python","React","Next.js","TypeScript"],add:["C++","Distributed systems"]},
   {t:"AI Engineer",co:"Aventum Group",loc:"London",cat:"mle",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=AI%20Engineer%20Aventum&location=United%20Kingdom&f_TPR=r604800",
+   posted:"1 day ago",age:1,salary:"",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=AI%20Engineer%20Aventum&location=United%20Kingdom&f_TPR=r604800",
    like:72,have:["Python","LLMs","FastAPI"],add:["LangChain","RAG","Azure OpenAI"]},
   {t:"Graduate Machine Learning Researcher",co:"Longshot Systems",loc:"London",cat:"mle",remote:false,commutable:true,type:"Graduate",
-   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=Graduate%20Machine%20Learning%20Longshot%20Systems&location=United%20Kingdom&f_TPR=r604800",
+   posted:"1 day ago",age:1,salary:"",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=Graduate%20Machine%20Learning%20Longshot%20Systems&location=United%20Kingdom&f_TPR=r604800",
    like:69,have:["Python","PyTorch","XGBoost"],add:["C++","Reinforcement learning","Low-latency"]},
   {t:"Machine Learning Ops Engineer",co:"Proactive Appointments",loc:"London",cat:"mle",remote:false,commutable:true,type:"Contract",
-   posted:"4 days ago",age:4,salary:"£45k–£60k",src:"Reed",url:"https://www.reed.co.uk/jobs/machine-learning-ops-engineer/57169340",
+   posted:"4 days ago",age:4,salary:"£45k-£60k",src:"Reed",url:"https://www.reed.co.uk/jobs/machine-learning-ops-engineer/57169340",
    like:55,have:["Python","FastAPI"],add:["Docker","Kubernetes","MLOps","CI/CD"]},
-  {t:"AI/ML Engineers — UK Wide (all levels)",co:"describe.me",loc:"Remote (UK)",cat:"mle",remote:true,commutable:false,type:"Permanent",
-   posted:"30 Jun",age:33,salary:"£55k–£150k",src:"Reed",url:"https://www.reed.co.uk/jobs/ai-ml-engineers-uk-wide/57070472",
+  {t:"AI/ML Engineers - UK Wide (all levels)",co:"describe.me",loc:"Remote (UK)",cat:"mle",remote:true,commutable:false,type:"Permanent",
+   posted:"30 Jun",age:33,salary:"£55k-£150k",src:"Reed",url:"https://www.reed.co.uk/jobs/ai-ml-engineers-uk-wide/57070472",
    like:64,have:["Python","PyTorch","TensorFlow"],add:["Cloud (AWS/GCP)","MLOps","Docker"]},
 
   // ---------------- Data Analyst ----------------
   {t:"Junior Data Analyst",co:"Hyra",loc:"Remote (UK)",cat:"da",remote:true,commutable:false,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/junior-data-analyst-at-hyra-4447779406",
+   posted:"1 day ago",age:1,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/junior-data-analyst-at-hyra-4447779406",
    like:82,have:["SQL","Python","Pandas","Data Viz"],add:["Excel","Power BI"]},
-  {t:"Data Analyst — Business (Remote)",co:"Hired",loc:"Remote (UK)",cat:"da",remote:true,commutable:false,type:"Full-time",
-   posted:"9 hours ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-business-remote-at-hired-4447874049",
+  {t:"Data Analyst - Business (Remote)",co:"Hired",loc:"Remote (UK)",cat:"da",remote:true,commutable:false,type:"Full-time",
+   posted:"9 hours ago",age:0,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-business-remote-at-hired-4447874049",
    like:78,have:["SQL","Python","Data Viz"],add:["Tableau","Stakeholder reporting"]},
-  {t:"Junior Data Analyst",co:"Chelmsford (Essex) — commutable",loc:"Chelmsford",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"£29k–£35k",src:"Jooble",url:"https://uk.jooble.org/desc/4302371524804973240",
+  {t:"Junior Data Analyst",co:"Chelmsford (Essex) - commutable",loc:"Chelmsford",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"£29k-£35k",src:"Jooble",url:"https://uk.jooble.org/desc/4302371524804973240",
    like:76,have:["SQL","Python","Data Viz"],add:["Excel","Power BI"]},
   {t:"Data Analyst",co:"GoHenry",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"£47k–£62k",src:"Jooble",url:"https://uk.jooble.org/desc/-7981468647729282986",
+   posted:"1 day ago",age:1,salary:"£47k-£62k",src:"Jooble",url:"https://uk.jooble.org/desc/-7981468647729282986",
    like:72,have:["SQL","Python","Data Viz"],add:["Looker","dbt"]},
   {t:"Data Analyst",co:"Netcompany",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-at-netcompany-4435911837",
+   posted:"1 day ago",age:1,salary:"",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-at-netcompany-4435911837",
    like:70,have:["SQL","Python"],add:["Power BI","Tableau"]},
-  {t:"Data Analyst — Pitstops",co:"relay",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/3543127830565429721",
+  {t:"Data Analyst - Pitstops",co:"relay",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"5 hours ago",age:0,salary:"",src:"Jooble",url:"https://uk.jooble.org/desc/3543127830565429721",
    like:70,have:["SQL","Python","Data Viz"],add:["Tableau","dbt"]},
   {t:"Data Analyst",co:"Sphere Digital Recruitment",loc:"City of London",cat:"da",remote:false,commutable:true,type:"Full-time",
    posted:"4 days ago",age:4,salary:"£50k",src:"Jooble",url:"https://uk.jooble.org/desc/-35347205417009147",
    like:66,have:["SQL","Python"],add:["Tableau","Marketing analytics"]},
   {t:"Data Analyst",co:"Warner Bros. Discovery",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"30 Jul",age:3,salary:"—",src:"Indeed",url:"https://to.indeed.com/aamt6q2xqlyl",
+   posted:"30 Jul",age:3,salary:"",src:"Indeed",url:"https://to.indeed.com/aamt6q2xqlyl",
    like:66,have:["SQL","Python","Data Viz"],add:["Looker","Tableau"]},
   {t:"Data Analyst",co:"Orsett Terrace Properties",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
-   posted:"28 Jul",age:5,salary:"—",src:"Indeed",url:"https://to.indeed.com/aapzsn8wp6wk",
+   posted:"28 Jul",age:5,salary:"",src:"Indeed",url:"https://to.indeed.com/aapzsn8wp6wk",
    like:63,have:["SQL","Data Viz"],add:["Excel","Power BI"]},
 
   // ---------------- AI Trainer / LLM ----------------
-  {t:"Freelance Annotator (English) — AI Trainer",co:"Mindrift",loc:"Remote / London",cat:"ai",remote:true,commutable:true,type:"Part-time · Freelance",
+  {t:"Freelance Annotator (English) - AI Trainer",co:"Mindrift",loc:"Remote / London",cat:"ai",remote:true,commutable:true,type:"Part-time · Freelance",
    posted:"2 days ago",age:2,salary:"$22/hr",src:"Jooble",url:"https://uk.jooble.org/desc/-9213518528397400934",
    like:86,have:["LLMs","Python"],add:["Prompt engineering","RLHF","Annotation tools"]},
   {t:"AI Business Capability Coach (Level 4)",co:"Corndel",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Remote · Flexible",
-   posted:"2 days ago",age:2,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-6349095536861096793",
+   posted:"2 days ago",age:2,salary:"",src:"Jooble",url:"https://uk.jooble.org/desc/-6349095536861096793",
    like:58,have:["LLMs","Data Viz"],add:["L&D / coaching","Apprenticeship standards"]},
-  {t:"AI Trainer — Apprenticeships",co:"LT Selection",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Remote · Flexible",
-   posted:"4 days ago",age:4,salary:"£45k–£70k",src:"Jooble",url:"https://uk.jooble.org/desc/2384364297772322084",
+  {t:"AI Trainer - Apprenticeships",co:"LT Selection",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Remote · Flexible",
+   posted:"4 days ago",age:4,salary:"£45k-£70k",src:"Jooble",url:"https://uk.jooble.org/desc/2384364297772322084",
    like:55,have:["Python","LLMs"],add:["Teaching","Apprenticeship delivery"]},
   {t:"AI Leadership Facilitator & Marker",co:"peopleworth",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Part-time · Remote",
    posted:"5 days ago",age:5,salary:"£65/hr",src:"Jooble",url:"https://uk.jooble.org/desc/-1720678993038874916",
@@ -384,11 +398,14 @@ function render(){
         </div>
       </div>
       <div class="foot">
-        <span class="salary">${j.salary&&j.salary!=="—"?"💷 "+j.salary:"&nbsp;"}</span>
-        <a class="apply" href="${j.url}" target="_blank" rel="noopener">Apply / view ↗</a>
+        <span class="salary">${j.salary?"💷 "+j.salary:"&nbsp;"}</span>
+        <div class="foot-actions">
+          <button class="cvbtn" onclick="downloadCV(${j.__i})" title="Download a Word CV tailored and ATS-optimised for this exact role">📄 Tailored CV</button>
+          <a class="apply" href="${j.url}" target="_blank" rel="noopener">Apply / view ↗</a>
+        </div>
       </div>
     </div>`).join("")
-    : `<div class="empty">No roles match these filters right now. Try turning off <b>≤2 days</b> or clearing a filter — older matches are kept and age-badged.</div>`;
+    : `<div class="empty">No roles match these filters right now. Try turning off <b>≤2 days</b> or clearing a filter - older matches are kept and age-badged.</div>`;
 
   buildStats(); buildBoost();
 }
@@ -430,8 +447,150 @@ function buildSources(){
 
 function buildTicker(){
   const hot=JOBS.filter(j=>j.age<=2 && j.like>=70).slice(0,8);
-  const html=hot.map(j=>`<span><b>${j.remote?'REMOTE':'LONDON'}</b> ${j.t} · ${j.co} — ${j.like}% match</span>`).join("");
+  const html=hot.map(j=>`<span><b>${j.remote?'REMOTE':'LONDON'}</b> ${j.t} · ${j.co} - ${j.like}% match</span>`).join("");
   document.getElementById('ticker').innerHTML=html+html;
+}
+
+/* ============================================================
+   PER-JOB ATS CV OPTIMISER  (do not let the daily refresh touch this block)
+   Base CV = Azeez's real CV. buildCV(job) tailors it to a role and
+   weaves the job's keywords into the skills block for ATS matching.
+   Experience bullets stay factual. Output is a Word .doc download.
+   ============================================================ */
+const CV_BASE = {
+  name:"AZEEZ ALEEM AREMU",
+  contact:"Lagos, Nigeria | +234 702 509 8955 | telaleem01@gmail.com | linkedin.com/in/azeezaleem | github.com/Azleem01",
+  skills:{
+    "Languages & Core":["Python","TypeScript","SQL"],
+    "ML / AI":["TensorFlow","PyTorch","scikit-learn","XGBoost","Adversarial ML","LLM Application Development"],
+    "Data & Backend":["Pandas","NumPy","FastAPI","REST APIs","Data Analysis & Visualization"],
+    "Web / Tooling":["React","Next.js","Tailwind CSS","Git & GitHub"],
+    "Domain":["Industrial Control Systems","Instrumentation","Process Data","Calibration & Testing"]
+  },
+  projects:{
+    sentinel:{title:"Sentinel AI, Technical Lead", meta:"Imperial College Global Challenge Lab (Health & Technology Track), 2026",
+      bullets:[
+        "Led an emergency-department triage decision-support prototype end to end: trained an XGBoost risk model on synthetic clinical data, built a FastAPI scoring service, and shipped a React triage board.",
+        "Scoped and documented the system as a research prototype with held-out validation metrics and clearly stated limitations."]},
+    flashcard:{title:"Flashcard AI, Developer", meta:"Personal Project, 2026",
+      bullets:[
+        "Built and shipped a production Next.js and Tailwind study app that runs OCR on uploaded screenshots, classifies the subject, and generates spaced-repetition flashcards via an LLM pipeline.",
+        "Designed the app to fail gracefully with no API keys configured and kept all keys server-side for security."]},
+    deepfake:{title:"Anti-Deepfake Protector, Researcher", meta:"Independent AI Safety Research, 2026",
+      bullets:[
+        "Developed an adversarial image-protection tool using a PGD attack against Stable Diffusion VAE and CLIP encoders, degrading AI face swaps while preserving visual quality (SSIM above 0.95).",
+        "Benchmarked robustness across multiple diffusion-based editing pipelines, drawing on PhotoGuard and Glaze techniques."]}
+  },
+  experience:[
+    {role:"Instrumentation & Control Trainee", org:"Olorunsogo Power Plant", dates:"May 2024 to Aug 2024",
+      bullets:[
+        "Performed preventive and corrective maintenance on control systems and field instruments (flame detectors, pressure gauges, level switches), building rigour in reading and validating sensor data.",
+        "Calibrated instrumentation (CNG Barton Chart Recorder) and ran megger tests on 6.6 kV and 400 V motor cables; tracked critical parameters during Frame 9E gas turbine start-up and shutdown."]},
+    {role:"Network Operations Intern", org:"Airtel Regional Office, Ibadan", dates:"Sep 2023 to Nov 2023",
+      bullets:[
+        "Supported daily network operations and site inspections; performed data entry, analysis, and report generation in MS Excel to track operational performance."]},
+    {role:"Metering & Testing Intern", org:"Quantum Manufacturing & Metering Solutions, Lagos", dates:"Jul 2023 to Sep 2023",
+      bullets:[
+        "Conducted functional testing and calibration of electricity meters prior to field deployment; documented specifications and batch test data using meter-management IT systems."]}
+  ],
+  education:[
+    "MSc, Control and Optimization, Imperial College London, 2026 (in view)",
+    "B.Eng, Electrical & Electronics Engineering (First Class), First Technical University, Ibadan, 2020 to 2025. Best Graduating Student, Dept. of Electrical & Electronic Engineering."
+  ],
+  awards:[
+    "Published academic researcher; IELTS Academic Band 8.0.",
+    "Vice-Chancellor's First-Class Honours Scholar List (CGPA 4.76 / 5.0).",
+    "Graduate Member, Nigerian Society of Engineers (GMNSE); Member, SPE; Member, NIEEE.",
+    "Chess: rated 2000+ on Lichess Rapid (top 10% globally)."
+  ]
+};
+
+const CV_ROLE={ds:"Data Scientist",mle:"Machine Learning Engineer",da:"Data Analyst",ai:"AI Trainer and LLM Specialist"};
+const CV_SUMMARY={
+  ds:"Data Scientist and Machine Learning Engineer with a First-Class Electrical and Electronics Engineering degree and hands-on experience shipping applied AI systems, from healthcare decision-support models to production LLM applications. Strong in Python, SQL, and the modern ML stack (PyTorch, TensorFlow, scikit-learn, XGBoost), building end-to-end pipelines that are tested, documented, and honestly scoped. Currently completing an MSc in Control and Optimization at Imperial College London.",
+  mle:"Machine Learning Engineer with a First-Class Engineering background and a track record of building and deploying end-to-end ML systems (FastAPI, React, Next.js). Experienced across model training (PyTorch, TensorFlow, scikit-learn, XGBoost), LLM application development, and productionising models with clean, tested, well-documented code. Currently completing an MSc in Control and Optimization at Imperial College London.",
+  da:"Data Analyst with strong quantitative and analytical foundations and a First-Class Engineering degree. Skilled in Python, SQL, Pandas, and data visualization, turning raw operational and process data into clear, decision-ready insight (Excel operational reporting, batch test analytics, model validation metrics). Currently completing an MSc in Control and Optimization at Imperial College London.",
+  ai:"AI Trainer and LLM Specialist with hands-on experience in LLM application development, adversarial ML, and AI-safety tooling. Comfortable with prompt design, model evaluation, data annotation, and shipping LLM-powered products (OCR to spaced-repetition pipelines). First-Class Engineering background, currently completing an MSc in Control and Optimization at Imperial College London."
+};
+const CV_PROJ_ORDER={ds:["sentinel","deepfake","flashcard"],mle:["sentinel","flashcard","deepfake"],
+  da:["sentinel","flashcard","deepfake"],ai:["flashcard","deepfake","sentinel"]};
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function uniq(arr){const seen=new Set(),out=[];arr.forEach(x=>{const k=x.toLowerCase();if(!seen.has(k)){seen.add(k);out.push(x);}});return out;}
+
+function buildCV(job){
+  const roleTitle=CV_ROLE[job.cat]||"Data Scientist";
+  // Weave the job's own keywords (have + add) to the FRONT of the competencies bank for ATS matching.
+  const flatBase=[].concat.apply([],Object.values(CV_BASE.skills));
+  const competencies=uniq([].concat(job.have||[],job.add||[],flatBase));
+  const projOrder=CV_PROJ_ORDER[job.cat]||CV_PROJ_ORDER.ds;
+
+  const skillsHtml=Object.entries(CV_BASE.skills).map(([g,items])=>
+    `<p style="margin:2pt 0"><span class="k">${esc(g)}:</span> ${esc(items.join(", "))}</p>`).join("");
+
+  const projHtml=projOrder.map(key=>{const p=CV_BASE.projects[key];
+    return `<p class="role" style="margin:8pt 0 1pt">${esc(p.title)}</p><p class="meta">${esc(p.meta)}</p>
+    <ul>${p.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;}).join("");
+
+  const expHtml=CV_BASE.experience.map(e=>
+    `<p class="role" style="margin:8pt 0 1pt">${esc(e.role)}, ${esc(e.org)}</p><p class="meta">${esc(e.dates)}</p>
+    <ul>${e.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`).join("");
+
+  return `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head><meta charset='utf-8'><title>${esc(CV_BASE.name)} - ${esc(roleTitle)}</title>
+<style>
+body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#111;line-height:1.32;margin:0.7in}
+h1{font-size:19pt;margin:0 0 2pt}
+.title{font-size:12.5pt;font-weight:bold;color:#16a34a;margin:0 0 3pt}
+.contact{font-size:10pt;color:#222;margin:0 0 2pt}
+h2{font-size:11.5pt;text-transform:uppercase;letter-spacing:.4pt;border-bottom:1.2pt solid #333;padding-bottom:2pt;margin:14pt 0 4pt}
+ul{margin:2pt 0 6pt 20pt;padding:0}
+li{margin:2pt 0}
+.role{font-weight:bold;margin:0}
+.meta{font-style:italic;color:#333;margin:0 0 2pt}
+.k{font-weight:bold}
+.target{font-size:10pt;color:#333;margin:2pt 0 0}
+</style></head>
+<body>
+<h1>${esc(CV_BASE.name)}</h1>
+<p class="title">${esc(roleTitle)}</p>
+<p class="contact">${esc(CV_BASE.contact)}</p>
+<p class="target"><span class="k">Target role:</span> ${esc(job.t)} at ${esc(job.co)}</p>
+
+<h2>Professional Summary</h2>
+<p style="margin:2pt 0">${esc(CV_SUMMARY[job.cat]||CV_SUMMARY.ds)}</p>
+
+<h2>Core Competencies</h2>
+<p style="margin:2pt 0">${esc(competencies.join(", "))}</p>
+
+<h2>Technical Skills</h2>
+${skillsHtml}
+
+<h2>Applied AI &amp; ML Projects</h2>
+${projHtml}
+
+<h2>Professional Experience</h2>
+${expHtml}
+
+<h2>Education</h2>
+<ul>${CV_BASE.education.map(e=>`<li>${esc(e)}</li>`).join("")}</ul>
+
+<h2>Awards, Publications &amp; Memberships</h2>
+<ul>${CV_BASE.awards.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+</body></html>`;
+}
+
+function downloadCV(i){
+  const job=JOBS[i]; if(!job) return;
+  const html=buildCV(job);
+  const blob=new Blob(['﻿',html],{type:'application/msword'});
+  const url=URL.createObjectURL(blob);
+  const safe=s=>String(s).replace(/[^A-Za-z0-9]+/g,'_').replace(/^_+|_+$/g,'');
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`Azeez_Aleem_${safe(CV_ROLE[job.cat]||'CV')}_${safe(job.co)}.doc`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
 }
 
 function setCat(k){CAT=k;render()}
@@ -439,5 +598,6 @@ function setSort(v){SORT=v;render()}
 function toggle(k){F[k]=!F[k];render()}
 document.getElementById('q').addEventListener('keyup',e=>{if(e.key==="Enter")render()});
 
+JOBS.forEach((j,i)=>j.__i=i);
 buildSources(); buildTicker(); render();
 </script>

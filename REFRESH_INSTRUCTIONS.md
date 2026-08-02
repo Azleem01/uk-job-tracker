@@ -1,10 +1,11 @@
-# Daily Refresh Instructions — UK Job Tracker
+# Daily Refresh Instructions - UK Job Tracker
 
 You are a scheduled cloud agent. Your job: rebuild `index.html` in this repo with fresh UK job
-listings for **Azeez Aleem** (Data Scientist / ML Engineer, junior–mid level), then commit & push so
+listings for **Azeez Aleem** (Data Scientist / ML Engineer, junior-mid level), then commit & push so
 GitHub Pages redeploys. Work only inside this repo. Keep the entire design/CSS/JS of `index.html`
-unchanged — **only** replace the `const JOBS = [ ... ];` array and the `const LAST_UPDATED = "...";`
-line.
+unchanged. **Only** replace the `const JOBS = [ ... ];` array and the `const LAST_UPDATED = "...";`
+line. In particular, DO NOT modify the `CV_BASE` object or the `buildCV` / `downloadCV` functions
+(the per-job CV optimiser); leave that whole block exactly as-is. Never use em dashes anywhere.
 
 ## 0. Candidate profile (for scoring + keyword gaps)
 CV skills he ALREADY has: Python, TypeScript, SQL, PyTorch, TensorFlow, scikit-learn, XGBoost, Pandas,
@@ -12,7 +13,7 @@ NumPy, FastAPI, REST APIs, React, Next.js, Tailwind, Git/GitHub, LLM application
 OCR, Data Analysis & Visualization. He is doing an MSc (Control & Optimization) at Imperial College
 London. Targets: **junior / mid / graduate / early-career**. He wants part-time & remote first.
 
-## 1. Collect jobs (5 web sources — use the WebFetch tool)
+## 1. Collect jobs (5 web sources - use the WebFetch tool)
 For EACH of the 4 role tracks, fetch these URLs and extract listings (title, company, location,
 posted date, salary if shown, detail URL). Role tracks: **Data Scientist, Machine Learning Engineer /
 AI Engineer, Data Analyst, AI Trainer / LLM**.
@@ -25,7 +26,7 @@ AI Engineer, Data Analyst, AI Trainer / LLM**.
 - **Reed**: `https://www.reed.co.uk/jobs/<role-hyphenated>-jobs-in-london`
 - **Himalayas** (remote): `https://himalayas.app/jobs?search=<ROLE>`
 
-Note: the Indeed connector is NOT available in the cloud — these 5 web sources only. If a source
+Note: the Indeed connector is NOT available in the cloud - these 5 web sources only. If a source
 returns 403/timeout/empty, skip it silently and continue (record it as "checked · 0 today").
 
 ## 2. Filter
@@ -38,33 +39,33 @@ returns 403/timeout/empty, skip it silently and continue (record it as "checked 
 - **Freshness:** prefer posted ≤ 2 days, but KEEP older matches too (the UI badges their age). Skip
   anything older than ~35 days (likely closed).
 - **Dedupe** across sources by title+company; keep the copy with a real posted date + working URL.
-- Aim for ~25–40 good jobs total, spread across the 4 tracks.
+- Aim for ~25-40 good jobs total, spread across the 4 tracks.
 
 ## 3. Compute fields for each job
 Convert posted date to `age` in whole days from today (UTC). "X hours ago" / "today" → 0.
 `remote:true` if remote/anywhere/UK-wide. `commutable:true` if London or a hub above.
 `type`: Full-time / Part-time / Contract / Freelance / Graduate / Permanent as stated.
 
-### Likelihood score (integer 0–100)
+### Likelihood score (integer 0-100)
 Start at 50, then:
 - +25 junior/graduate/entry/early-career · +10 mid-level
 - +3 per CV skill the job clearly wants (cap +25)
 - +8 part-time/contract/freelance · +6 remote · +10 AI-trainer/annotation/LLM-labelling (low barrier)
 - +10 if it mentions visa sponsorship
 - −15 heavy mismatch (pure data-engineering/DevOps, or "PhD required" / "5+ yrs")
-Clamp 0–100. Band is derived in the UI: ≥70 High, 45–69 Medium, <45 Low.
+Clamp 0-100. Band is derived in the UI: ≥70 High, 45-69 Medium, <45 Low.
 
 ### Keywords
-- `have`: 3–4 CV skills this job values (from section 0).
-- `add`: 2–3 in-demand skills the job wants that are NOT on his CV. Common pool: Docker, Kubernetes,
+- `have`: 3-4 CV skills this job values (from section 0).
+- `add`: 2-3 in-demand skills the job wants that are NOT on his CV. Common pool: Docker, Kubernetes,
   AWS/GCP/Azure, SageMaker/Vertex AI, MLOps, CI/CD, Spark, Airflow, Kafka, Databricks, Snowflake, dbt,
   Tableau, Power BI, Looker, LangChain, RAG, Hugging Face, A/B testing, Experimentation, Statistics,
   NLP, Computer Vision, MLflow.
 
-## 4. Write the job object (exact schema — match existing file)
+## 4. Write the job object (exact schema - match existing file)
 ```js
 {t:"Title",co:"Company",loc:"London",cat:"ds|mle|da|ai",remote:false,commutable:true,
- type:"Full-time",posted:"1 day ago",age:1,salary:"£50k" or "—",src:"Jooble|LinkedIn|Reed|aijobs.net|Himalayas",
+ type:"Full-time",posted:"1 day ago",age:1,salary:"£50k" or "-",src:"Jooble|LinkedIn|Reed|aijobs.net|Himalayas",
  url:"https://…direct apply/detail link…",like:72,have:["Python","SQL"],add:["Docker","MLOps"]}
 ```
 `cat` mapping: Data Scientist→`ds`, ML/AI Engineer→`mle`, Data Analyst→`da`, AI Trainer/LLM→`ai`.
