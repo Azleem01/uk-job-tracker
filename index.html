@@ -459,53 +459,61 @@ function buildTicker(){
    ============================================================ */
 const CV_BASE = {
   name:"AZEEZ ALEEM AREMU",
-  contact:"Lagos, Nigeria | +234 702 509 8955 | telaleem01@gmail.com | linkedin.com/in/azeezaleem | github.com/Azleem01",
+  location:"Lagos, Nigeria",
+  phone:"+234 702 509 8955",
+  email:"telaleem01@gmail.com",
+  links:{LinkedIn:"https://www.linkedin.com/in/aleem-azeez-6661a128a/",GitHub:"https://github.com/Azleem01",Portfolio:"https://my-portfolio-mu-ebon-31.vercel.app/"},
+  certUrl:"https://drive.google.com/file/d/1sVExksRN7KRu8a98RRSG4LPVOfo-9kIJ/view",
   skills:{
     "Languages & Core":["Python","TypeScript","SQL"],
     "ML / AI":["TensorFlow","PyTorch","scikit-learn","XGBoost","Adversarial ML","LLM Application Development"],
     "Data & Backend":["Pandas","NumPy","FastAPI","REST APIs","Data Analysis & Visualization"],
     "Web / Tooling":["React","Next.js","Tailwind CSS","Git & GitHub"],
-    "Domain":["Industrial Control Systems","Instrumentation","Process Data","Calibration & Testing"]
+    "Domain Knowledge":["Industrial Control Systems","Instrumentation","Process Data","Calibration & Testing"]
   },
   projects:{
-    sentinel:{title:"Sentinel AI, Technical Lead", meta:"Imperial College Global Challenge Lab (Health & Technology Track), 2026",
+    sentinel:{title:"Sentinel AI - Technical Lead", org:"Imperial College Global Challenge Lab (Health & Technology Track)", date:"2026", cert:true,
       bullets:[
-        "Led an emergency-department triage decision-support prototype end to end: trained an XGBoost risk model on synthetic clinical data, built a FastAPI scoring service, and shipped a React triage board.",
-        "Scoped and documented the system as a research prototype with held-out validation metrics and clearly stated limitations."]},
-    flashcard:{title:"Flashcard AI, Developer", meta:"Personal Project, 2026",
+        "Led development of an emergency-department triage decision-support prototype end to end: trained an XGBoost risk model on synthetic clinical data, built a FastAPI scoring service, and shipped a React triage board.",
+        "Deliberately scoped and documented the system as a research prototype rather than a medical device, with held-out validation metrics and clear limitations."]},
+    flashcard:{title:"Flashcard AI - Developer", org:"Personal Project", date:"2026",
       bullets:[
         "Built and shipped a production Next.js and Tailwind study app that runs OCR on uploaded screenshots, classifies the subject, and generates spaced-repetition flashcards via an LLM pipeline.",
         "Designed the app to fail gracefully with no API keys configured and kept all keys server-side for security."]},
-    deepfake:{title:"Anti-Deepfake Protector, Researcher", meta:"Independent AI Safety Research, 2026",
+    deepfake:{title:"Anti-Deepfake Protector - Researcher", org:"Independent AI Safety Research", date:"2026",
       bullets:[
         "Developed an adversarial image-protection tool using a PGD attack against Stable Diffusion VAE and CLIP encoders, degrading AI face swaps while preserving visual quality (SSIM above 0.95).",
-        "Benchmarked robustness across multiple diffusion-based editing pipelines, drawing on PhotoGuard and Glaze techniques."]}
+        "Benchmarked robustness against multiple diffusion-based editing pipelines, drawing on techniques from PhotoGuard and Glaze."]}
   },
   experience:[
-    {role:"Instrumentation & Control Trainee", org:"Olorunsogo Power Plant", dates:"May 2024 to Aug 2024",
+    {role:"Instrumentation & Control Trainee", org:"Olorunsogo Power Plant", date:"May 2024 - Aug 2024",
       bullets:[
-        "Performed preventive and corrective maintenance on control systems and field instruments (flame detectors, pressure gauges, level switches), building rigour in reading and validating sensor data.",
-        "Calibrated instrumentation (CNG Barton Chart Recorder) and ran megger tests on 6.6 kV and 400 V motor cables; tracked critical parameters during Frame 9E gas turbine start-up and shutdown."]},
-    {role:"Network Operations Intern", org:"Airtel Regional Office, Ibadan", dates:"Sep 2023 to Nov 2023",
+        "Performed preventive and corrective maintenance on control systems and field instruments, including flame detectors, pressure gauges, and level switches, developing rigour in reading and validating sensor data.",
+        "Calibrated instrumentation (CNG Barton Chart Recorder) and conducted megger tests on 6.6 kV and 400 V motor cables; tracked critical operating parameters during Frame 9E gas turbine start-up and shutdown."]},
+    {role:"Network Operations Intern", org:"Airtel Regional Office, Ibadan", date:"Sep 2023 - Nov 2023",
       bullets:[
         "Supported daily network operations and site inspections; performed data entry, analysis, and report generation in MS Excel to track operational performance."]},
-    {role:"Metering & Testing Intern", org:"Quantum Manufacturing & Metering Solutions, Lagos", dates:"Jul 2023 to Sep 2023",
+    {role:"Metering & Testing Intern", org:"Quantum Manufacturing & Metering Solutions, Lagos", date:"Jul 2023 - Sep 2023",
       bullets:[
         "Conducted functional testing and calibration of electricity meters prior to field deployment; documented specifications and batch test data using meter-management IT systems."]}
   ],
   education:[
-    "MSc, Control and Optimization, Imperial College London, 2026 (in view)",
-    "B.Eng, Electrical & Electronics Engineering (First Class), First Technical University, Ibadan, 2020 to 2025. Best Graduating Student, Dept. of Electrical & Electronic Engineering."
+    {left:"MSc, Control and Optimization, Imperial College London", date:"2026 - Masters in view"},
+    {left:"B.Eng, Electrical & Electronics Engineering (First Class), First Technical University, Ibadan", date:"2020 - 2025"}
   ],
+  eduNote:"Best Graduating Student, Department of Electrical & Electronic Engineering (2025/2026 set).",
   awards:[
     "Published academic researcher; IELTS Academic Band 8.0.",
-    "Vice-Chancellor's First-Class Honours Scholar List (CGPA 4.76 / 5.0).",
-    "Graduate Member, Nigerian Society of Engineers (GMNSE); Member, SPE; Member, NIEEE.",
+    "Best Graduating Student, First Technical University, Dept. of Electrical & Electronic Engineering (2025/2026).",
+    "Vice-Chancellor's First-Class Honours Scholar List (CGPA 4.76/5.0).",
+    "Graduate Member, Nigerian Society of Engineers (GMNSE); Member, Society of Petroleum Engineers (SPE); Member, Nigerian Institute of Electrical and Electronic Engineers (NIEEE).",
     "Chess: rated 2000+ on Lichess Rapid (top 10% globally)."
   ]
 };
 
 const CV_ROLE={ds:"Data Scientist",mle:"Machine Learning Engineer",da:"Data Analyst",ai:"AI Trainer and LLM Specialist"};
+const CV_SUBTITLE={ds:"Data Scientist | Machine Learning Engineer",mle:"Machine Learning Engineer | AI Engineer",
+  da:"Data Analyst | Data Scientist",ai:"AI Trainer | LLM Application Developer"};
 const CV_SUMMARY={
   ds:"Data Scientist and Machine Learning Engineer with a First-Class Electrical and Electronics Engineering degree and hands-on experience shipping applied AI systems, from healthcare decision-support models to production LLM applications. Strong in Python, SQL, and the modern ML stack (PyTorch, TensorFlow, scikit-learn, XGBoost), building end-to-end pipelines that are tested, documented, and honestly scoped. Currently completing an MSc in Control and Optimization at Imperial College London.",
   mle:"Machine Learning Engineer with a First-Class Engineering background and a track record of building and deploying end-to-end ML systems (FastAPI, React, Next.js). Experienced across model training (PyTorch, TensorFlow, scikit-learn, XGBoost), LLM application development, and productionising models with clean, tested, well-documented code. Currently completing an MSc in Control and Optimization at Imperial College London.",
@@ -519,49 +527,54 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function uniq(arr){const seen=new Set(),out=[];arr.forEach(x=>{const k=x.toLowerCase();if(!seen.has(k)){seen.add(k);out.push(x);}});return out;}
 
 function buildCV(job){
-  const roleTitle=CV_ROLE[job.cat]||"Data Scientist";
-  // Weave the job's own keywords (have + add) to the FRONT of the competencies bank for ATS matching.
-  const flatBase=[].concat.apply([],Object.values(CV_BASE.skills));
-  const competencies=uniq([].concat(job.have||[],job.add||[],flatBase));
-  const projOrder=CV_PROJ_ORDER[job.cat]||CV_PROJ_ORDER.ds;
+  const B=CV_BASE, cat=job.cat||"ds";
+  const projOrder=CV_PROJ_ORDER[cat]||CV_PROJ_ORDER.ds;
 
-  const skillsHtml=Object.entries(CV_BASE.skills).map(([g,items])=>
-    `<p style="margin:2pt 0"><span class="k">${esc(g)}:</span> ${esc(items.join(", "))}</p>`).join("");
+  // Technical Skills: original grouped lines, then weave this job's target keywords in as an extra line.
+  let skillsHtml=Object.entries(B.skills).map(([g,items])=>
+    `<p class="skill"><span class="k">${esc(g)}:</span> ${esc(items.join(", "))}</p>`).join("");
+  if(job.add && job.add.length)
+    skillsHtml+=`<p class="skill"><span class="k">Additional Skills:</span> ${esc(uniq(job.add).join(", "))}</p>`;
 
-  const projHtml=projOrder.map(key=>{const p=CV_BASE.projects[key];
-    return `<p class="role" style="margin:8pt 0 1pt">${esc(p.title)}</p><p class="meta">${esc(p.meta)}</p>
-    <ul>${p.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`;}).join("");
+  const entry=(title,org,date)=>
+    `<p class="entry"><span class="date">${esc(date)}</span>${esc(title)}${org?"  |  "+esc(org):""}</p>`;
 
-  const expHtml=CV_BASE.experience.map(e=>
-    `<p class="role" style="margin:8pt 0 1pt">${esc(e.role)}, ${esc(e.org)}</p><p class="meta">${esc(e.dates)}</p>
-    <ul>${e.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`).join("");
+  const projHtml=projOrder.map(key=>{const p=B.projects[key];
+    const bl=p.bullets.map((b,idx)=>{
+      let t=esc(b);
+      if(p.cert && idx===p.bullets.length-1) t+=` <a href="${B.certUrl}">Link to certificate</a>`;
+      return `<li>${t}</li>`;}).join("");
+    return entry(p.title,p.org,p.date)+`<ul>${bl}</ul>`;}).join("");
+
+  const expHtml=B.experience.map(e=>
+    entry(e.role,e.org,e.date)+`<ul>${e.bullets.map(b=>`<li>${esc(b)}</li>`).join("")}</ul>`).join("");
+
+  const eduHtml=B.education.map(e=>entry(e.left,"",e.date)).join("")+`<ul><li>${esc(B.eduNote)}</li></ul>`;
 
   return `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-<head><meta charset='utf-8'><title>${esc(CV_BASE.name)} - ${esc(roleTitle)}</title>
+<head><meta charset='utf-8'><title>${esc(B.name)} - ${esc(CV_ROLE[cat]||"CV")}</title>
 <style>
-body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#111;line-height:1.32;margin:0.7in}
-h1{font-size:19pt;margin:0 0 2pt}
-.title{font-size:12.5pt;font-weight:bold;color:#16a34a;margin:0 0 3pt}
-.contact{font-size:10pt;color:#222;margin:0 0 2pt}
-h2{font-size:11.5pt;text-transform:uppercase;letter-spacing:.4pt;border-bottom:1.2pt solid #333;padding-bottom:2pt;margin:14pt 0 4pt}
-ul{margin:2pt 0 6pt 20pt;padding:0}
-li{margin:2pt 0}
-.role{font-weight:bold;margin:0}
-.meta{font-style:italic;color:#333;margin:0 0 2pt}
+body{font-family:Calibri,Arial,sans-serif;font-size:12.0pt;color:#000000;background:#ffffff;line-height:1.3;margin:0.6in}
+p{margin:2pt 0}
+.name{font-size:17pt;font-weight:bold;text-align:center;margin:0}
+.subtitle{font-size:11pt;text-align:center;margin:1pt 0 0}
+.contact{font-size:9pt;text-align:center;margin:2pt 0 0}
+.contact a,a{color:#000000;text-decoration:underline}
+h2{font-size:12pt;font-weight:bold;text-transform:uppercase;border-bottom:1px solid #000000;padding-bottom:2pt;margin:12pt 0 4pt}
+.skill{margin:2pt 0}
 .k{font-weight:bold}
-.target{font-size:10pt;color:#333;margin:2pt 0 0}
+.entry{font-weight:bold;margin:8pt 0 1pt;overflow:hidden}
+.entry .date{float:right;font-weight:bold}
+ul{margin:2pt 0 6pt 22pt;padding:0}
+li{margin:2pt 0}
 </style></head>
 <body>
-<h1>${esc(CV_BASE.name)}</h1>
-<p class="title">${esc(roleTitle)}</p>
-<p class="contact">${esc(CV_BASE.contact)}</p>
-<p class="target"><span class="k">Target role:</span> ${esc(job.t)} at ${esc(job.co)}</p>
+<p class="name">${esc(B.name)}</p>
+<p class="subtitle">${esc(CV_SUBTITLE[cat]||CV_SUBTITLE.ds)}</p>
+<p class="contact">${esc(B.location)} | ${esc(B.phone)} | ${esc(B.email)} | <a href="${B.links.LinkedIn}">LinkedIn</a> | <a href="${B.links.GitHub}">GitHub</a> | <a href="${B.links.Portfolio}">Portfolio</a></p>
 
 <h2>Professional Summary</h2>
-<p style="margin:2pt 0">${esc(CV_SUMMARY[job.cat]||CV_SUMMARY.ds)}</p>
-
-<h2>Core Competencies</h2>
-<p style="margin:2pt 0">${esc(competencies.join(", "))}</p>
+<p>${esc(CV_SUMMARY[cat]||CV_SUMMARY.ds)}</p>
 
 <h2>Technical Skills</h2>
 ${skillsHtml}
@@ -573,10 +586,10 @@ ${projHtml}
 ${expHtml}
 
 <h2>Education</h2>
-<ul>${CV_BASE.education.map(e=>`<li>${esc(e)}</li>`).join("")}</ul>
+${eduHtml}
 
 <h2>Awards, Publications &amp; Memberships</h2>
-<ul>${CV_BASE.awards.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
+<ul>${B.awards.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>
 </body></html>`;
 }
 
