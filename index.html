@@ -1,0 +1,443 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Azeez Aleem — UK ML / Data Job Tracker</title>
+<style>
+  :root{
+    --bg:#eef1f5; --panel:#ffffff; --ink:#0c1524; --muted:#5b6b82; --line:#e2e8f0;
+    --brand:#16a34a; --brand-ink:#0b6b34; --brand-soft:#dcfce7;
+    --dark:#0b1220; --dark2:#111c30;
+    --hi:#16a34a; --hi-soft:#dcfce7; --med:#b45309; --med-soft:#fef3c7; --lo:#64748b; --lo-soft:#e5e9f0;
+    --remote:#2563eb; --remote-soft:#dbeafe; --london:#7c3aed; --london-soft:#ede9fe;
+    --new:#16a34a; --old:#64748b; --radius:14px; --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#070c15; --panel:#0f1a2c; --ink:#e8eef6; --muted:#93a3ba; --line:#1e2b41;
+      --brand-soft:#0e3a22; --hi-soft:#0e3a22; --med-soft:#3a2c0c; --lo-soft:#1a2437;
+      --remote-soft:#122142; --london-soft:#241a44; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+
+  /* Header */
+  header.top{background:linear-gradient(180deg,#0b1220,#0e1a2e);color:#e9eef6}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+  .logo .mark{width:34px;height:34px;border-radius:9px;background:var(--brand);display:grid;place-items:center;
+    font-size:18px;box-shadow:0 4px 14px rgba(22,163,74,.5)}
+  .logo small{display:block;font-weight:500;color:#9fb0c6;font-size:11px;letter-spacing:.3px}
+  .pill{font-size:12px;color:#bfe9cf;background:rgba(22,163,74,.16);border:1px solid rgba(22,163,74,.35);
+    padding:6px 11px;border-radius:999px;font-weight:600;white-space:nowrap}
+
+  /* Ticker */
+  .ticker{background:#060b14;border-top:1px solid #16233a;border-bottom:1px solid #16233a;overflow:hidden;color:#cdd8e8}
+  .ticker .row{display:flex;gap:38px;white-space:nowrap;padding:8px 0;animation:scroll 40s linear infinite;font-size:13px}
+  .ticker b{color:var(--brand);margin-right:6px}
+  .ticker .row:hover{animation-play-state:paused}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Hero */
+  .hero{padding:30px 0 8px;text-align:center}
+  .hero h1{font-size:clamp(26px,4.6vw,42px);line-height:1.08;margin:6px 0 8px;font-weight:850;letter-spacing:-.5px}
+  .hero h1 .g{color:var(--brand)}
+  .hero p{color:var(--muted);max-width:660px;margin:0 auto;font-size:15px}
+  .search{margin:20px auto 6px;max-width:720px;display:flex;gap:8px;background:var(--panel);
+    border:1px solid var(--line);border-radius:999px;padding:7px 7px 7px 18px;box-shadow:var(--shadow)}
+  .search input{flex:1;border:0;background:transparent;color:var(--ink);font-size:15px;outline:none}
+  .search button{border:0;background:var(--brand);color:#fff;font-weight:700;padding:11px 20px;border-radius:999px;cursor:pointer}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 4px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .stat .n{font-size:24px;font-weight:800;letter-spacing:-.5px}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+  .stat.brand .n{color:var(--brand)}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1fr;gap:18px;margin:22px 0 40px}
+  @media(min-width:900px){.grid{grid-template-columns:1fr 300px}}
+
+  /* Tabs + filters */
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 14px;border-radius:999px;
+    font-weight:600;font-size:13.5px;cursor:pointer;transition:.15s}
+  .tab:hover{border-color:var(--brand)}
+  .tab.active{background:#0b1220;color:#fff;border-color:#0b1220}
+  @media (prefers-color-scheme: dark){.tab.active{background:var(--brand);border-color:var(--brand)}}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+  .chip{border:1px dashed var(--line);background:transparent;color:var(--muted);padding:7px 12px;border-radius:999px;
+    font-size:13px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .chip.on{background:var(--brand-soft);color:var(--brand-ink);border:1px solid var(--brand);border-style:solid}
+  @media (prefers-color-scheme: dark){.chip.on{color:#8ef0b5}}
+  .spacer{flex:1}
+  select.sort{margin-left:auto;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:999px;padding:8px 12px;font-size:13px;font-weight:600}
+
+  /* Job cards */
+  .count{font-size:13px;color:var(--muted);margin:0 2px 12px}
+  .job{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;
+    box-shadow:var(--shadow);margin-bottom:14px;transition:.15s;position:relative;overflow:hidden}
+  .job:hover{transform:translateY(-2px);border-color:var(--brand)}
+  .job .lgrip{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .job .head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .job h3{margin:0;font-size:17px;font-weight:750;letter-spacing:-.2px}
+  .job h3 a:hover{color:var(--brand);text-decoration:underline}
+  .co{color:var(--muted);font-size:13.5px;margin-top:3px}
+  .co b{color:var(--ink);font-weight:650}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .b{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+  .b.remote{background:var(--remote-soft);color:var(--remote)}
+  .b.london{background:var(--london-soft);color:var(--london)}
+  .b.new{background:var(--hi-soft);color:var(--hi)}
+  .b.old{background:var(--lo-soft);color:var(--lo)}
+  .b.type{background:var(--lo-soft);color:var(--muted)}
+  .b.src{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:600}
+  .like{text-align:right;flex-shrink:0}
+  .like .ring{font-size:20px;font-weight:850;line-height:1}
+  .like .lab{font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-top:3px}
+  .like.hi .ring,.like.hi .lab{color:var(--hi)}
+  .like.med .ring,.like.med .lab{color:var(--med)}
+  .like.lo .ring,.like.lo .lab{color:var(--lo)}
+  .kw{margin-top:12px;border-top:1px dashed var(--line);padding-top:11px;display:flex;flex-wrap:wrap;gap:12px}
+  .kwcol{flex:1;min-width:210px}
+  .kwcol .t{font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .tag{display:inline-block;font-size:11.5px;padding:3px 8px;border-radius:7px;margin:0 5px 5px 0;font-weight:600}
+  .tag.have{background:var(--hi-soft);color:var(--brand-ink)}
+  .tag.add{background:var(--med-soft);color:var(--med);border:1px dashed var(--med)}
+  @media (prefers-color-scheme: dark){.tag.have{color:#8ef0b5}}
+  .foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;gap:10px;flex-wrap:wrap}
+  .apply{background:var(--brand);color:#fff;font-weight:750;font-size:13.5px;padding:9px 16px;border-radius:9px;
+    display:inline-flex;gap:7px;align-items:center}
+  .apply:hover{background:#128a3f}
+  .salary{font-size:13px;color:var(--ink);font-weight:650}
+
+  /* Sidebar */
+  aside .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+    box-shadow:var(--shadow);margin-bottom:16px}
+  aside h4{margin:0 0 4px;font-size:14.5px;font-weight:800}
+  aside .sub{font-size:12px;color:var(--muted);margin-bottom:12px}
+  .boost{display:flex;flex-direction:column;gap:8px}
+  .boost .kwrow{display:flex;align-items:center;gap:10px}
+  .boost .kwrow .name{font-size:13px;font-weight:700;min-width:96px}
+  .boost .bar{flex:1;height:8px;border-radius:999px;background:var(--lo-soft);overflow:hidden}
+  .boost .bar i{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e)}
+  .boost .cnt{font-size:11.5px;color:var(--muted);font-weight:700;min-width:44px;text-align:right}
+  .srclist{display:flex;flex-direction:column;gap:9px;font-size:13px}
+  .srcrow{display:flex;justify-content:space-between;align-items:center}
+  .srcrow .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);display:inline-block;margin-right:8px}
+  .srcrow .dot.zero{background:var(--lo)}
+  .srcrow .c{font-size:11.5px;color:var(--muted);font-weight:700}
+  .legend{font-size:12px;color:var(--muted);line-height:1.7}
+  .legend b{color:var(--ink)}
+  .dotk{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  footer.site{color:var(--muted);font-size:12px;text-align:center;padding:24px 0 40px;line-height:1.7}
+  .empty{background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius);padding:32px;text-align:center;color:var(--muted)}
+</style>
+
+<header class="top">
+  <div class="wrap topbar">
+    <div class="logo">
+      <span class="mark">🎯</span>
+      <span>UK JobRadar
+        <small>Azeez Aleem · Data Science / ML</small>
+      </span>
+    </div>
+    <span class="pill" id="livePill">— live vacancies</span>
+  </div>
+</header>
+<div class="ticker"><div class="row" id="ticker"></div></div>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Find Your Next <span class="g">UK Role</span> — <br/>Remote Anywhere · On-site near London</h1>
+    <p>Data Science &amp; Machine Learning jobs matched to your CV, scored by how likely you are to land them,
+       with the exact keywords to add. Freshest first — <b>updated daily</b>.</p>
+    <div class="search">
+      <input id="q" type="text" placeholder="Search title, company, skill…  e.g. LLM, London, part-time" />
+      <button onclick="render()">Search</button>
+    </div>
+  </section>
+
+  <section class="stats" id="stats"></section>
+
+  <div class="grid">
+    <div>
+      <div class="tabs" id="tabs"></div>
+      <div class="filters" id="filters"></div>
+      <div class="count" id="count"></div>
+      <div id="list"></div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h4>📈 CV Boost — biggest wins</h4>
+        <div class="sub">Skills most often required across the jobs below that aren't on your CV yet. Add the top ones first.</div>
+        <div class="boost" id="boost"></div>
+      </div>
+      <div class="card">
+        <h4>🛰️ Sources checked</h4>
+        <div class="sub" id="updated">Last updated —</div>
+        <div class="srclist" id="srclist"></div>
+      </div>
+      <div class="card">
+        <h4>🎚️ Likelihood key</h4>
+        <div class="legend">
+          <div><span class="dotk" style="background:var(--hi)"></span><b>High (≥70)</b> — strong skill + level match, apply first.</div>
+          <div><span class="dotk" style="background:var(--med)"></span><b>Medium (45–69)</b> — good fit; the "Add to CV" keywords close the gap.</div>
+          <div><span class="dotk" style="background:var(--lo)"></span><b>Low (&lt;45)</b> — a stretch (seniority / heavy extra skills).</div>
+          <div style="margin-top:8px">Score = level fit + CV skill overlap + remote/part-time bonuses − seniority/experience gaps.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site">
+  Built for Azeez Aleem · Data Scientist / ML Engineer · MSc Control &amp; Optimization, Imperial College London.<br/>
+  Remote roles shown from anywhere; on-site roles limited to London &amp; commutable hubs (Reading, Slough, Watford, St Albans, Guildford, Oxford, Cambridge, Chelmsford, Milton Keynes).<br/>
+  Snapshot generated 2 Aug 2026 · rebuilt automatically each morning.
+</footer>
+
+<script>
+// ---- Data snapshot: generated 2026-08-02 from Indeed, Jooble, LinkedIn, Reed, aijobs.net (+Himalayas checked) ----
+const LAST_UPDATED = "2 Aug 2026, 09:00 BST";
+const CV_SKILLS = ["Python","PyTorch","TensorFlow","scikit-learn","XGBoost","SQL","FastAPI","React","Next.js","Pandas","NumPy","LLMs","Adversarial ML","OCR","Data Viz"];
+
+// category: ds | mle | da | ai  ·  remote true=anywhere  ·  commutable true=London area
+const JOBS = [
+  // ---------------- Data Scientist ----------------
+  {t:"Data Scientist, Payments",co:"Stripe",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"20 hours ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-payments-at-stripe-4430967819",
+   like:74,have:["Python","SQL","Pandas"],add:["A/B testing","Experimentation","Spark"]},
+  {t:"Data Scientist, Early Career (UK)",co:"Jobright.ai",loc:"Remote (UK)",cat:"ds",remote:true,commutable:false,type:"Full-time",
+   posted:"under 1 hour ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-early-career-uk-at-jobright-ai-4447660035",
+   like:82,have:["Python","scikit-learn","SQL"],add:["Cloud (AWS/GCP)","SQL dashboards"]},
+  {t:"Data Scientist",co:"Faculty",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-2960333230301903225",
+   like:75,have:["Python","PyTorch","scikit-learn","LLMs"],add:["MLOps","Docker","Azure"]},
+  {t:"Data Scientist",co:"checkout.com",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-7038774481097191593",
+   like:70,have:["Python","SQL","XGBoost"],add:["Spark","Experimentation","dbt"]},
+  {t:"Data Scientist I",co:"QuantumBlack, AI by McKinsey",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"—",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
+   like:72,have:["Python","scikit-learn","XGBoost","SQL"],add:["Cloud (AWS/GCP)","MLOps","Spark"]},
+  {t:"Data Scientist, London",co:"Transak",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"£58k–£75k",src:"Jooble",url:"https://uk.jooble.org/desc/-4555738996573814665",
+   like:68,have:["Python","SQL","Pandas"],add:["Blockchain analytics","SQL","Tableau"]},
+  {t:"Data Scientist",co:"Vitality",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-scientist-at-vitality-4447154110",
+   like:66,have:["Python","scikit-learn","SQL"],add:["Statistics","R","Actuarial data"]},
+  {t:"Data Scientist",co:"CoreWeave Europe",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"8 hours ago",age:0,salary:"£59k–£76k",src:"Jooble",url:"https://uk.jooble.org/desc/-1211007382502721353",
+   like:63,have:["Python","PyTorch"],add:["Distributed training","CUDA","Kubernetes"]},
+  {t:"Data Scientist",co:"Sage",loc:"London",cat:"ds",remote:false,commutable:true,type:"Full-time",
+   posted:"5 days ago",age:5,salary:"£69k–£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-5814570644308582049",
+   like:64,have:["Python","scikit-learn","SQL"],add:["Cloud (Azure)","MLOps"]},
+  {t:"Data Scientist",co:"Jobheron",loc:"London",cat:"ds",remote:false,commutable:true,type:"Permanent",
+   posted:"29 Jun",age:34,salary:"£54k–£58k",src:"Reed",url:"https://www.reed.co.uk/jobs/data-scientist/57069135",
+   like:62,have:["Python","scikit-learn","SQL"],add:["Power BI","SQL","Statistics"]},
+
+  // ---------------- ML / AI Engineer ----------------
+  {t:"Mid-Level AI / Machine Learning Engineer",co:"Nextech",loc:"London",cat:"mle",remote:false,commutable:true,type:"Permanent",
+   posted:"4 days ago",age:4,salary:"£65k–£75k",src:"Reed",url:"https://www.reed.co.uk/jobs/mid-level-ai-machine-learning-engineer/57170074",
+   like:76,have:["Python","PyTorch","FastAPI","LLMs"],add:["Docker","AWS","MLOps"]},
+  {t:"Machine Learning Engineer",co:"datatonic",loc:"London",cat:"mle",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"£56k–£74k",src:"Jooble",url:"https://uk.jooble.org/desc/-7028140385128638726",
+   like:73,have:["Python","TensorFlow","scikit-learn"],add:["GCP / Vertex AI","Docker","BigQuery"]},
+  {t:"Graduate AI Software Engineer",co:"Bending Spoons",loc:"London",cat:"mle",remote:false,commutable:true,type:"Graduate",
+   posted:"1 day ago",age:1,salary:"—",src:"aijobs.net",url:"https://aijobs.net/?reg=6&loc=London",
+   like:74,have:["Python","React","Next.js","TypeScript"],add:["C++","Distributed systems"]},
+  {t:"AI Engineer",co:"Aventum Group",loc:"London",cat:"mle",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=AI%20Engineer%20Aventum&location=United%20Kingdom&f_TPR=r604800",
+   like:72,have:["Python","LLMs","FastAPI"],add:["LangChain","RAG","Azure OpenAI"]},
+  {t:"Graduate Machine Learning Researcher",co:"Longshot Systems",loc:"London",cat:"mle",remote:false,commutable:true,type:"Graduate",
+   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://www.linkedin.com/jobs/search?keywords=Graduate%20Machine%20Learning%20Longshot%20Systems&location=United%20Kingdom&f_TPR=r604800",
+   like:69,have:["Python","PyTorch","XGBoost"],add:["C++","Reinforcement learning","Low-latency"]},
+  {t:"Machine Learning Ops Engineer",co:"Proactive Appointments",loc:"London",cat:"mle",remote:false,commutable:true,type:"Contract",
+   posted:"4 days ago",age:4,salary:"£45k–£60k",src:"Reed",url:"https://www.reed.co.uk/jobs/machine-learning-ops-engineer/57169340",
+   like:55,have:["Python","FastAPI"],add:["Docker","Kubernetes","MLOps","CI/CD"]},
+  {t:"AI/ML Engineers — UK Wide (all levels)",co:"describe.me",loc:"Remote (UK)",cat:"mle",remote:true,commutable:false,type:"Permanent",
+   posted:"30 Jun",age:33,salary:"£55k–£150k",src:"Reed",url:"https://www.reed.co.uk/jobs/ai-ml-engineers-uk-wide/57070472",
+   like:64,have:["Python","PyTorch","TensorFlow"],add:["Cloud (AWS/GCP)","MLOps","Docker"]},
+
+  // ---------------- Data Analyst ----------------
+  {t:"Junior Data Analyst",co:"Hyra",loc:"Remote (UK)",cat:"da",remote:true,commutable:false,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/junior-data-analyst-at-hyra-4447779406",
+   like:82,have:["SQL","Python","Pandas","Data Viz"],add:["Excel","Power BI"]},
+  {t:"Data Analyst — Business (Remote)",co:"Hired",loc:"Remote (UK)",cat:"da",remote:true,commutable:false,type:"Full-time",
+   posted:"9 hours ago",age:0,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-business-remote-at-hired-4447874049",
+   like:78,have:["SQL","Python","Data Viz"],add:["Tableau","Stakeholder reporting"]},
+  {t:"Junior Data Analyst",co:"Chelmsford (Essex) — commutable",loc:"Chelmsford",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"£29k–£35k",src:"Jooble",url:"https://uk.jooble.org/desc/4302371524804973240",
+   like:76,have:["SQL","Python","Data Viz"],add:["Excel","Power BI"]},
+  {t:"Data Analyst",co:"GoHenry",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"£47k–£62k",src:"Jooble",url:"https://uk.jooble.org/desc/-7981468647729282986",
+   like:72,have:["SQL","Python","Data Viz"],add:["Looker","dbt"]},
+  {t:"Data Analyst",co:"Netcompany",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"1 day ago",age:1,salary:"—",src:"LinkedIn",url:"https://uk.linkedin.com/jobs/view/data-analyst-at-netcompany-4435911837",
+   like:70,have:["SQL","Python"],add:["Power BI","Tableau"]},
+  {t:"Data Analyst — Pitstops",co:"relay",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"5 hours ago",age:0,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/3543127830565429721",
+   like:70,have:["SQL","Python","Data Viz"],add:["Tableau","dbt"]},
+  {t:"Data Analyst",co:"Sphere Digital Recruitment",loc:"City of London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"4 days ago",age:4,salary:"£50k",src:"Jooble",url:"https://uk.jooble.org/desc/-35347205417009147",
+   like:66,have:["SQL","Python"],add:["Tableau","Marketing analytics"]},
+  {t:"Data Analyst",co:"Warner Bros. Discovery",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"30 Jul",age:3,salary:"—",src:"Indeed",url:"https://to.indeed.com/aamt6q2xqlyl",
+   like:66,have:["SQL","Python","Data Viz"],add:["Looker","Tableau"]},
+  {t:"Data Analyst",co:"Orsett Terrace Properties",loc:"London",cat:"da",remote:false,commutable:true,type:"Full-time",
+   posted:"28 Jul",age:5,salary:"—",src:"Indeed",url:"https://to.indeed.com/aapzsn8wp6wk",
+   like:63,have:["SQL","Data Viz"],add:["Excel","Power BI"]},
+
+  // ---------------- AI Trainer / LLM ----------------
+  {t:"Freelance Annotator (English) — AI Trainer",co:"Mindrift",loc:"Remote / London",cat:"ai",remote:true,commutable:true,type:"Part-time · Freelance",
+   posted:"2 days ago",age:2,salary:"$22/hr",src:"Jooble",url:"https://uk.jooble.org/desc/-9213518528397400934",
+   like:86,have:["LLMs","Python"],add:["Prompt engineering","RLHF","Annotation tools"]},
+  {t:"AI Business Capability Coach (Level 4)",co:"Corndel",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Remote · Flexible",
+   posted:"2 days ago",age:2,salary:"—",src:"Jooble",url:"https://uk.jooble.org/desc/-6349095536861096793",
+   like:58,have:["LLMs","Data Viz"],add:["L&D / coaching","Apprenticeship standards"]},
+  {t:"AI Trainer — Apprenticeships",co:"LT Selection",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Remote · Flexible",
+   posted:"4 days ago",age:4,salary:"£45k–£70k",src:"Jooble",url:"https://uk.jooble.org/desc/2384364297772322084",
+   like:55,have:["Python","LLMs"],add:["Teaching","Apprenticeship delivery"]},
+  {t:"AI Leadership Facilitator & Marker",co:"peopleworth",loc:"Remote (UK)",cat:"ai",remote:true,commutable:false,type:"Part-time · Remote",
+   posted:"5 days ago",age:5,salary:"£65/hr",src:"Jooble",url:"https://uk.jooble.org/desc/-1720678993038874916",
+   like:50,have:["LLMs"],add:["Facilitation","Assessment / marking"]}
+];
+
+// ---------------- Source coverage for footer (incl. checked-but-empty) ----------------
+const SOURCES = ["Indeed","Jooble","LinkedIn","Reed","aijobs.net","Himalayas"];
+
+// ---------------- State ----------------
+let CAT="all", SORT="like";
+const F={fresh:false, remote:false, london:false, part:false, high:false};
+const TABS=[["all","All roles"],["ds","Data Scientist"],["mle","ML / AI Engineer"],["da","Data Analyst"],["ai","AI Trainer / LLM"]];
+const CHIPS=[["fresh","🟢 ≤2 days"],["remote","🌍 Remote (anywhere)"],["london","📍 London & nearby"],["part","⏱️ Part-time / freelance"],["high","⭐ High likelihood"]];
+
+function band(n){return n>=70?"hi":n>=45?"med":"lo"}
+function bandLabel(n){return n>=70?"High":n>=45?"Medium":"Low"}
+function bandColor(n){return n>=70?"var(--hi)":n>=45?"var(--med)":"var(--lo)"}
+function ageBadge(j){return j.age<=2?`<span class="b new">${j.age===0?"NEW · today":"NEW · "+j.age+"d"}</span>`:`<span class="b old">${j.age}d ago</span>`}
+
+function matches(j){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  if(CAT!=="all" && j.cat!==CAT) return false;
+  if(F.fresh && j.age>2) return false;
+  if(F.remote && !j.remote) return false;
+  if(F.london && !j.commutable) return false;
+  if(F.part && !/part|freelance|contract/i.test(j.type)) return false;
+  if(F.high && j.like<70) return false;
+  if(q){
+    const hay=(j.t+" "+j.co+" "+j.loc+" "+j.type+" "+j.have.join(" ")+" "+j.add.join(" ")+" "+j.src).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function render(){
+  // tabs
+  document.getElementById('tabs').innerHTML=TABS.map(([k,l])=>{
+    const n=JOBS.filter(j=>k==="all"||j.cat===k).length;
+    return `<button class="tab ${CAT===k?'active':''}" onclick="setCat('${k}')">${l} <span style="opacity:.6">${n}</span></button>`;
+  }).join("");
+  // chips
+  document.getElementById('filters').innerHTML=CHIPS.map(([k,l])=>
+    `<button class="chip ${F[k]?'on':''}" onclick="toggle('${k}')">${l}</button>`).join("")
+    +`<select class="sort" onchange="setSort(this.value)">
+        <option value="like" ${SORT==='like'?'selected':''}>Sort: Likelihood</option>
+        <option value="fresh" ${SORT==='fresh'?'selected':''}>Sort: Freshest</option>
+      </select>`;
+
+  let rows=JOBS.filter(matches);
+  rows.sort((a,b)=> SORT==="like" ? b.like-a.like || a.age-b.age : a.age-b.age || b.like-a.like);
+
+  document.getElementById('count').innerHTML=`Showing <b>${rows.length}</b> of ${JOBS.length} matched roles`;
+  const list=document.getElementById('list');
+  list.innerHTML = rows.length ? rows.map(j=>`
+    <div class="job">
+      <span class="lgrip" style="background:${bandColor(j.like)}"></span>
+      <div class="head">
+        <div>
+          <h3><a href="${j.url}" target="_blank" rel="noopener">${j.t}</a></h3>
+          <div class="co">at <b>${j.co}</b> · ${j.loc}</div>
+        </div>
+        <div class="like ${band(j.like)}">
+          <div class="ring">${j.like}</div>
+          <div class="lab">${bandLabel(j.like)}</div>
+        </div>
+      </div>
+      <div class="badges">
+        ${j.remote?'<span class="b remote">🌍 Remote</span>':'<span class="b london">📍 London area</span>'}
+        ${ageBadge(j)}
+        <span class="b type">${j.type}</span>
+        <span class="b src">via ${j.src}</span>
+      </div>
+      <div class="kw">
+        <div class="kwcol">
+          <div class="t">✓ You already match</div>
+          ${j.have.map(s=>`<span class="tag have">${s}</span>`).join("")}
+        </div>
+        <div class="kwcol">
+          <div class="t">➕ Add to your CV for this one</div>
+          ${j.add.map(s=>`<span class="tag add">${s}</span>`).join("")}
+        </div>
+      </div>
+      <div class="foot">
+        <span class="salary">${j.salary&&j.salary!=="—"?"💷 "+j.salary:"&nbsp;"}</span>
+        <a class="apply" href="${j.url}" target="_blank" rel="noopener">Apply / view ↗</a>
+      </div>
+    </div>`).join("")
+    : `<div class="empty">No roles match these filters right now. Try turning off <b>≤2 days</b> or clearing a filter — older matches are kept and age-badged.</div>`;
+
+  buildStats(); buildBoost();
+}
+
+function buildStats(){
+  const total=JOBS.length;
+  const fresh=JOBS.filter(j=>j.age<=2).length;
+  const remote=JOBS.filter(j=>j.remote).length;
+  const high=JOBS.filter(j=>j.like>=70).length;
+  document.getElementById('livePill').textContent=total+" live vacancies";
+  document.getElementById('stats').innerHTML=`
+    <div class="stat brand"><div class="n">${total}</div><div class="l">Matched roles</div></div>
+    <div class="stat"><div class="n">${fresh}</div><div class="l">Posted ≤ 2 days</div></div>
+    <div class="stat"><div class="n">${remote}</div><div class="l">Remote (anywhere)</div></div>
+    <div class="stat"><div class="n">${high}</div><div class="l">High likelihood</div></div>`;
+}
+
+function buildBoost(){
+  const counts={};
+  JOBS.forEach(j=>j.add.forEach(k=>counts[k]=(counts[k]||0)+1));
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const max=top.length?top[0][1]:1;
+  document.getElementById('boost').innerHTML=top.map(([k,c])=>`
+    <div class="kwrow">
+      <span class="name">${k}</span>
+      <span class="bar"><i style="width:${Math.round(c/max*100)}%"></i></span>
+      <span class="cnt">${c} job${c>1?'s':''}</span>
+    </div>`).join("");
+}
+
+function buildSources(){
+  document.getElementById('updated').textContent="Last updated: "+LAST_UPDATED;
+  document.getElementById('srclist').innerHTML=SOURCES.map(s=>{
+    const c=JOBS.filter(j=>j.src===s).length;
+    return `<div class="srcrow"><span><span class="dot ${c?'':'zero'}"></span>${s}</span>
+      <span class="c">${c?c+" job"+(c>1?'s':''):"checked · 0 today"}</span></div>`;
+  }).join("");
+}
+
+function buildTicker(){
+  const hot=JOBS.filter(j=>j.age<=2 && j.like>=70).slice(0,8);
+  const html=hot.map(j=>`<span><b>${j.remote?'REMOTE':'LONDON'}</b> ${j.t} · ${j.co} — ${j.like}% match</span>`).join("");
+  document.getElementById('ticker').innerHTML=html+html;
+}
+
+function setCat(k){CAT=k;render()}
+function setSort(v){SORT=v;render()}
+function toggle(k){F[k]=!F[k];render()}
+document.getElementById('q').addEventListener('keyup',e=>{if(e.key==="Enter")render()});
+
+buildSources(); buildTicker(); render();
+</script>
