@@ -13,11 +13,18 @@ NumPy, FastAPI, REST APIs, React, Next.js, Tailwind, Git/GitHub, LLM application
 OCR, Data Analysis & Visualization. He is doing an MSc (Control & Optimization) at Imperial College
 London. Targets: **junior / mid / graduate / early-career**. He wants part-time & remote first.
 
-## 1. Collect jobs (5 web sources - use the WebFetch tool)
-For EACH of the 4 role tracks, fetch these URLs and extract listings (title, company, location,
-posted date, salary if shown, detail URL). Role tracks: **Data Scientist, Machine Learning Engineer /
-AI Engineer, Data Analyst, AI Trainer / LLM**.
+## 1. Collect jobs (6 sources)
+For EACH of the 4 role tracks, collect listings (title, company, location, posted date, salary if
+shown, detail URL). Role tracks: **Data Scientist, Machine Learning Engineer / AI Engineer, Data
+Analyst, AI Trainer / LLM**.
 
+**Indeed (use the Indeed MCP tool `search_jobs` FIRST if it is available to you).** Call it with
+`country_code:"GB"` for each role track, once with `location:"London"` and once with
+`location:"remote"`. Keep the `View Job URL` (the `to.indeed.com/...` link) intact as the job `url`
+and set `src:"Indeed"`. If the Indeed tool is not available in this run, skip it and continue with the
+web sources below (do not fail the run).
+
+**Web sources (use the WebFetch tool):**
 - **Jooble** (freshest; has recency param `date=2` = last 2 days):
   `https://uk.jooble.org/SearchResult?ukw=<ROLE>&date=3`
 - **LinkedIn** (`f_TPR=r172800` = last 48h):
@@ -26,8 +33,8 @@ AI Engineer, Data Analyst, AI Trainer / LLM**.
 - **Reed**: `https://www.reed.co.uk/jobs/<role-hyphenated>-jobs-in-london`
 - **Himalayas** (remote): `https://himalayas.app/jobs?search=<ROLE>`
 
-Note: the Indeed connector is NOT available in the cloud - these 5 web sources only. If a source
-returns 403/timeout/empty, skip it silently and continue (record it as "checked · 0 today").
+If any source returns 403/timeout/empty or is unavailable, skip it silently and continue (record it as
+"checked · 0 today").
 
 ## 2. Filter
 - **Location rule:** keep ALL remote/"UK"/"anywhere" jobs. For on-site jobs keep ONLY London or
