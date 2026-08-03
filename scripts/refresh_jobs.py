@@ -31,7 +31,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 TIMEOUT = 15
 MAX_JOBS = 36          # cap total jobs written
 MAX_PER_CAT = 12       # cap per role track so one track can't dominate
-MIN_JOBS = 6           # if fewer than this collected, leave the file untouched
+MAX_AGE_DAYS = 3       # hard freshness cutoff: anything older than this is wiped
 
 # Skills already on Azeez's CV (used for `have` + scoring). Lowercased match keys
 # map to the canonical label shown on the card.
@@ -411,7 +411,7 @@ def keep(region, r):
     if SENIOR.search(r["title"]):
         return False
     a = age_days(r["dt"])
-    if a is not None and a > 35:
+    if a is not None and a > MAX_AGE_DAYS:
         return False
     if r["remote"]:
         return remote_eligible(region, r["location"], r["text"])
@@ -539,7 +539,7 @@ def last_updated_date(src):
 
 
 def carry_forward(src):
-    """Return existing jobs aged forward by days elapsed, pruned at 35 days."""
+    """Return existing jobs aged forward by days elapsed, pruned at MAX_AGE_DAYS."""
     prev = parse_existing(src)
     lu = last_updated_date(src)
     delta = (TODAY - lu).days if lu else 1
@@ -550,7 +550,7 @@ def carry_forward(src):
             continue
         j = dict(j)
         j["age"] = int(j.get("age", 0) or 0) + delta
-        if j["age"] > 35:
+        if j["age"] > MAX_AGE_DAYS:
             continue
         j["posted"] = posted_from_age(j["age"])
         # normalise to the known key set (tolerate missing keys)
@@ -691,8 +691,15 @@ def main():
         with open(step, "a") as f:
             f.write(report + "\n")
 
-    if len(jobs) < MIN_JOBS:
-        print(f"Only {len(jobs)} jobs (< {MIN_JOBS}); leaving index.html unchanged.")
+    # Only bail on a genuine outage (no source returned anything). Low counts are a
+    # normal consequence of the 3-day wipe, so we still write them.
+    if sum(counts.values()) == 0:
+        print("All sources returned nothing (likely a transient outage); "
+              "leaving index.html unchanged so the board is not wiped by an API failure.")
+        return
+    if not jobs:
+        print("No jobs <= 3 days old after filtering; leaving index.html unchanged "
+              "to avoid an empty board.")
         return
 
     sources_label = json.dumps([n for n, _ in fetchers], ensure_ascii=True)
