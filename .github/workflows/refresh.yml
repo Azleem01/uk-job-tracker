@@ -1,0 +1,37 @@
+name: Daily job refresh
+
+on:
+  schedule:
+    - cron: "0 6 * * *"     # 06:00 UTC every day
+  workflow_dispatch: {}       # manual "Run workflow" button
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      TRACKER_REGION: uk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch fresh jobs and rebuild index.html
+        run: python scripts/refresh_jobs.py
+      - name: Commit and push if changed
+        run: |
+          git config user.name "job-refresh-bot"
+          git config user.email "actions@github.com"
+          git add index.html
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Daily refresh: UK job listings $(date -u +%Y-%m-%d)"
+            git push
+          fi
